@@ -1,14 +1,18 @@
-// useMQTTMessaging.jsx
 import { useEffect, useState } from 'react';
 import mqtt from 'mqtt';
-import messagingOptions from '../messaging-options'; // Make sure this path is correct
+import messagingOptions from '../messaging-options';
 
 export const useMQTTMessaging = () => {
   const [client, setClient] = useState(null);
-  const [isConnected, setIsConnected] = useState(false); // State to track connection status
-  const [logs, setLogs] = useState([]); // State to store logs
-
-  useEffect(() => {
+  const [isConnected, setIsConnected] = useState(false);
+  const [logs, setLogs] = useState([]);
+  // Initialize the state for user counts
+  const [userCounts, setUserCounts] = useState({
+    student: 0,
+    staff: 0,
+    admin: 0
+  });
+useEffect(() => {
     const url = `wss://${messagingOptions.host}:${messagingOptions.port}`;
     const mqttClient = mqtt.connect(url, {
       username: messagingOptions.username,
@@ -19,52 +23,39 @@ export const useMQTTMessaging = () => {
       ca: messagingOptions.useSSL ? [/* Your CA certificate if required */] : undefined
     });
 
-    // On connect event
     mqttClient.on('connect', () => {
-      console.log('Connected to MQTT broker.');
       setIsConnected(true);
+      console.log('Connected to MQTT broker.');
+      // Subscribe to both topics
+      mqttClient.subscribe(['backend/logs', 'backend/new_user']);
     });
 
-    // On error event
     mqttClient.on('error', (error) => {
       console.error('Connection error:', error);
       setIsConnected(false);
     });
 
+    mqttClient.on('message', (topic, message) => {
+      if (topic === 'backend/logs') {
+        const log = JSON.parse(message.toString());
+        setLogs(currentLogs => [log, ...currentLogs].slice(0, 6)); // Add new log at the start and keep only the most recent 6
+      } else if (topic === 'backend/new_user') {
+        // Handle the new_user messages
+        const { count, user_type } = JSON.parse(message.toString());
+        setUserCounts(prevCounts => ({
+          ...prevCounts,
+          [user_type]: prevCounts[user_type] + count
+        }));
+      }
+    });
+
     setClient(mqttClient);
 
-    // Clean up on component unmount or client change
     return () => {
       mqttClient.end();
     };
   }, []);
 
-  useEffect(() => {
-    if (client && isConnected) {
-      const topic = 'backend/logs'; // The topic to subscribe to for logs
-      client.subscribe(topic, (err) => {
-        if (err) {
-          console.error(`Could not subscribe to topic ${topic}:`, err);
-        } else {
-          console.log(`Subscribed to topic ${topic}`);
-        }
-      });
-
-      const handleIncomingMessage = (topic, message) => {
-        if (topic === 'backend/logs') {
-          const log = JSON.parse(message.toString());
-          setLogs([log]);
-        }
-      };
-
-      client.on('message', handleIncomingMessage);
-
-      return () => {
-        client.off('message', handleIncomingMessage);
-      };
-    }
-  }, [client, isConnected]); // Depend on the client and connection status
-
-  // Return everything including logs
-  return { client, sendMessage: (topic, message) => client?.publish(topic, message), logs };
+  // Return both logs and userCounts
+  return { logs, userCounts };
 };
