@@ -1,5 +1,6 @@
-import { allUserData} from "../logsData"
+import { allUserData } from "../allUser"
 import DisplayActiveUser from "./DisplayActiveUser"
+
 
 export default function Users() {
     return(

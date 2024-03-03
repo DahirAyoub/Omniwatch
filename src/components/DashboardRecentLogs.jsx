@@ -1,9 +1,11 @@
-import { recentLogData } from "../logsData";
+// DashboardRecentLogs.jsx
 import DisplayLogs from "./DisplayLogs";
-
+import { useLogs } from '../logsContext'; // Adjust the import path as necessary
 
 export default function DashboardRecentLogs() {
+  const { recentLogs } = useLogs(); // Use the context to get the recent logs
+
   return (
-    <DisplayLogs logData={recentLogData} full={false}></DisplayLogs>
-  )
+    <DisplayLogs logData={recentLogs} full={false} />
+  );
 }
