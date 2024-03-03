@@ -85,8 +85,8 @@ export const allUserData = [
     },
     {
       id: '507f191e810c19729de860ea',
-      username: 'Student15',
-      permission: 'Student',
+      username: 'Hershey',
+      permission: 'Admin',
       room: 'Classroom'
     }
   ];

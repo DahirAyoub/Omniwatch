@@ -8,9 +8,9 @@ export const useMQTTMessaging = () => {
   const [logs, setLogs] = useState([]);
   // Initialize the state for user counts
   const [userCounts, setUserCounts] = useState({
-    student: 0,
-    staff: 0,
-    admin: 0
+    student: 7,
+    staff: 4,
+    admin: 4
   });
 useEffect(() => {
     const url = `wss://${messagingOptions.host}:${messagingOptions.port}`;
