@@ -1,9 +1,9 @@
 import {
 	HiOutlineViewGrid,
 	HiOutlineCube,
-	HiOutlineQuestionMarkCircle,
-	HiOutlineCog,
     HiOutlineUserGroup,
+	HiOutlineLogout,
+	HiOutlineLogin,
 
 } from 'react-icons/hi'
 
@@ -26,19 +26,20 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 		path: '/users',
 		icon: <HiOutlineUserGroup />
 	}
+
 ]
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
 	{
-		key: 'settings',
-		label: 'Settings',
-		path: '/settings',
-		icon: <HiOutlineCog />
+		key: 'Logout',
+		label: 'Logout',
+		path: '/Logout',
+		icon: <HiOutlineLogout />
 	},
 	{
-		key: 'support',
-		label: 'Help & Support',
-		path: '/support',
-		icon: <HiOutlineQuestionMarkCircle />
+		key: 'login',
+		label: 'Login',
+		path: '/Login',
+		icon: <HiOutlineLogin/>
 	}
 ]

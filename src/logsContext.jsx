@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useMQTTMessaging } from './components/useMQTTMessaging';
 
 const LogsContext = createContext();
