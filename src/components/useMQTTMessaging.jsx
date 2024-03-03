@@ -59,3 +59,4 @@ useEffect(() => {
   // Return both logs and userCounts
   return { logs, userCounts };
 };
+
