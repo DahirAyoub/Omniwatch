@@ -1,4 +1,3 @@
-// useMQTTMessaging.jsx
 import { useEffect, useState } from 'react';
 import mqtt from 'mqtt';
 import messagingOptions from '../messaging-options';
@@ -9,12 +8,11 @@ export const useMQTTMessaging = () => {
   const [logs, setLogs] = useState([]);
   // Initialize the state for user counts
   const [userCounts, setUserCounts] = useState({
-    student: 0,
-    staff: 0,
-    admin: 0
+    student: 7,
+    staff: 4,
+    admin: 4
   });
-
-  useEffect(() => {
+useEffect(() => {
     const url = `wss://${messagingOptions.host}:${messagingOptions.port}`;
     const mqttClient = mqtt.connect(url, {
       username: messagingOptions.username,
@@ -61,3 +59,4 @@ export const useMQTTMessaging = () => {
   // Return both logs and userCounts
   return { logs, userCounts };
 };
+

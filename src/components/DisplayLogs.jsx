@@ -22,7 +22,7 @@ export default function DisplayLogs({logData,full}) {
           <tbody>
             {logData.map((log,index)=> (
               <tr key={index}>
-                <td>#{log.id}</td>
+                <td>{log.id}</td>
                 <td>{log.username}</td>
                 <td>{log.time}</td>
                 <td>{log.enter? 'Yes':'No'}</td>

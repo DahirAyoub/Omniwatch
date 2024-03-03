@@ -18,7 +18,7 @@ export default function DisplayActiveUser({userData}) {
           <tbody>
             {userData.map((user,index)=> (
               <tr key={index}>
-                <td>#{user.id}</td>
+                <td>{user.id}</td>
                 <td>{user.username}</td>
                 <td>{user.permission}</td>
                 <td>{user.room}</td>
