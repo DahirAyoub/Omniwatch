@@ -53,7 +53,7 @@ export const useMQTTMessaging = () => {
       const handleIncomingMessage = (topic, message) => {
         if (topic === 'backend/logs') {
           const log = JSON.parse(message.toString());
-          setLogs(currentLogs => [...currentLogs, log]);
+          setLogs([log]);
         }
       };
 
