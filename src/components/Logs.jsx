@@ -1,10 +1,14 @@
-import DisplayLogs from "./DisplayLogs"
-import { fullLogData } from "../logsData"
+// src/components/Logs.jsx
+import { useLogs } from "../logsContext";
+import DisplayLogs from "./DisplayLogs";
+
 
 export default function Logs() {
-    return(
+    const {fullLogs} = useLogs(); // Use context to get full logs
+
+    return (
         <div className="flex flex-row gap-4 w-full">
-            <DisplayLogs logData={fullLogData} full={true}/>
+            <DisplayLogs logData={fullLogs} full={true} />
         </div>
-    )
+    );
 }
