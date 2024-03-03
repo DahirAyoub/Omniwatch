@@ -2,11 +2,11 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts'
 
 const data = [
     {name:'Library',value:10},
-    {name:'Staff Lounge',value:3},
-    {name:'Laboratory',value:15},
-    {name:'Lobby',value:22},
-    {name:'Classroom',value:50},
-    {name:'Dean Office',value:2}
+    {name:'Staff Lounge',value:15},
+    {name:'Laboratory',value:7},
+    {name:'Lobby',value:30},
+    {name:'Classroom',value:10},
+    {name:'Dean Office',value:3}
 ]
 
 

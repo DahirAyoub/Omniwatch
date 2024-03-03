@@ -3,29 +3,34 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 const data = [
 	{
 		name: 'Library',
-		Enters: 40,
-		Exits: 24
+		Enters: 2,
+		Exits: 1
 	},
 	{
 		name: 'Staff Lounge',
-		Enters: 30,
-		Exits: 13
+		Enters: 4,
+		Exits: 2
 	},
 	{
 		name: 'Laboratory',
-		Enters: 30,
-		Exits: 13
+		Enters: 1,
+		Exits: 1
 	},
 	{
 		name: 'Lobby',
-		Enters: 30,
-		Exits: 13
+		Enters: 14,
+		Exits: 7
 	},
 	{
 		name: 'Classroom',
-		Enters: 30,
-		Exits: 28
+		Enters: 4,
+		Exits: 2
 	},
+	{
+		name: 'Dean Office',
+		Enters: 1,
+		Exits: 0
+	}
 ]
 
 
