@@ -7,6 +7,12 @@ export const useMQTTMessaging = () => {
   const [client, setClient] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [logs, setLogs] = useState([]);
+  // Initialize the state for user counts
+  const [userCounts, setUserCounts] = useState({
+    student: 0,
+    staff: 0,
+    admin: 0
+  });
 
   useEffect(() => {
     const url = `wss://${messagingOptions.host}:${messagingOptions.port}`;
@@ -22,7 +28,8 @@ export const useMQTTMessaging = () => {
     mqttClient.on('connect', () => {
       setIsConnected(true);
       console.log('Connected to MQTT broker.');
-      mqttClient.subscribe('backend/logs');
+      // Subscribe to both topics
+      mqttClient.subscribe(['backend/logs', 'backend/new_user']);
     });
 
     mqttClient.on('error', (error) => {
@@ -33,7 +40,14 @@ export const useMQTTMessaging = () => {
     mqttClient.on('message', (topic, message) => {
       if (topic === 'backend/logs') {
         const log = JSON.parse(message.toString());
-        setLogs(currentLogs => [log, ...currentLogs].slice(0, 6)); // Add new log at the start
+        setLogs(currentLogs => [log, ...currentLogs].slice(0, 6)); // Add new log at the start and keep only the most recent 6
+      } else if (topic === 'backend/new_user') {
+        // Handle the new_user messages
+        const { count, user_type } = JSON.parse(message.toString());
+        setUserCounts(prevCounts => ({
+          ...prevCounts,
+          [user_type]: prevCounts[user_type] + count
+        }));
       }
     });
 
@@ -44,6 +58,6 @@ export const useMQTTMessaging = () => {
     };
   }, []);
 
-  return { logs };
-
+  // Return both logs and userCounts
+  return { logs, userCounts };
 };
